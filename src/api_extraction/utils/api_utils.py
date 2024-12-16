@@ -10,7 +10,7 @@ class APIUtils:
     """
 
     @staticmethod
-    def setup_api_headers() -> dict:
+    def __setup_api_headers() -> dict:
         """
         Set up API headers for CoinGecko requests.
 
@@ -32,7 +32,7 @@ class APIUtils:
         }
 
     @staticmethod
-    def make_api_request(url: str, headers: dict) -> Response:
+    def make_api_request(url: str) -> Response:
         """
         Make a GET request to the specified API URL.
 
@@ -50,9 +50,8 @@ class APIUtils:
         
         if not url:
             raise ValueError("URL can not be empty!")
-        if not headers:
-            raise ValueError("Headers can not be empty!")
         
+        headers = APIUtils.__setup_api_headers()
         try:
             response = requests.get(url=url, headers=headers)
             response.raise_for_status()
